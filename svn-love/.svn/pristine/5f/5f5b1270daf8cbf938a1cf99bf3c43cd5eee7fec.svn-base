@@ -1,0 +1,5 @@
+name: lovesusie
+version: 1
+handle:
+- mime: if( path ~ "\..html$") type "text/html"
+- directoryindex:  index.html Love-master/index.html 1/Love-master/index.html 
