@@ -9,13 +9,26 @@
 			src: url('digital-7_mono.ttf') format("truetype");
 		}
 	</style>
-	<link href="css/default.css" type="text/css" rel="stylesheet">
+	<link href="css/default_dev.css" type="text/css" rel="stylesheet">
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/garden.js"></script>
     <script type="text/javascript" src="js/functions_dev.js"></script>
+    <script src="js/audio.min.js"></script>
+
 </head>
 
 <body>
+<!--	<div class="audiojsZ loadingZ" id="audiojs_wrapper0">-->
+	<div style="display:none;">
+      	<audio class='audio' src="mp3/1.mp3" autoplay></audio>
+    </div>
+    <ol style="display:none;">
+        <li><a href="#" data-src="mp3/1.mp3">dead wrong intro</a></li>
+        <li><a href="#" data-src="mp3/2.mp3">juicy-r</a></li>
+        <li><a href="#" data-src="mp3/3.mp3">it's all about the crystalizabeths</a></li>
+        <li><a href="#" data-src="mp3/4.mp3">islands is the limit</a></li>
+        <li><a href="#" data-src="mp3/5.mp3">islands is the limit</a></li>
+    </ol>
 	<div id="mainDiv">
 		<div id="content">
 			<div id="code">
@@ -32,11 +45,11 @@
 				u.accepted();<br />
 				<span class="comments">// Since then, I miss u every day.</span><br />
 				i.miss(u);<br />
-				<span class="comments">// The distance between us was 295.3 km.</span><br />
-				i.away_from(u) == <span class="keyword">295.3</span>;<br />
+				<span class="comments">// The distance between us was 295 km.</span><br />
+				i.away_from(u) == <span class="keyword">295</span>;<br />
 				<span class="comments">// How time fly! Four years later, I move to Hangzhou.</span><br />
 				<span class="comments">// You still in Shanghai, we got closer.</span><br />
-				i.away_from(u) == <span class="keyword">173.7</span>;<br />
+				i.away_from(u) == <span class="keyword">173</span>;<br />
 				<span class="keyword">while</span> (i.away_from(u) != <span class="keyword">0</span>) {<br />
 				<span class="placeholder"/>i.waitFor(u);<br />
 				<span class="placeholder"/><span class="comments">// I never doubt that we will be together.</span><br />
@@ -62,7 +75,11 @@
 		</div>
 		<div id="copyright">
 			<!--Inspired by <a href="http://www.openrise.com/lab/FlowerPower/">FlowerPower</a> project.<br />!-->
-			Copyright © 2013 <a href='./Gallery/index.html'>carlchen's blog</a> 2009-2013
+			Our Gallery <a href='./Gallery/index.html'>susie & carlchen's gallery</a>
+		</div>
+		<div id="copyright">
+			<!--Inspired by <a href="http://www.openrise.com/lab/FlowerPower/">FlowerPower</a> project.<br />!-->
+			Copyright © 2013 <a href='http://blog.csdn.net/gzxcyy'>carlchen's blog</a> 2009-2013
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -97,6 +114,53 @@
 			adjustCodePosition();
 			$("#code").typewriter();
 		}
+	</script>
+	<script>
+  		audiojs.events.ready(function() {
+    		//var as = audiojs.createAll();
+    		// Setup the player to autoplay the next track
+	        var a = audiojs.createAll({
+	          trackEnded: function() {
+	            var next = $('ol li.playing').next();
+	            if (!next.length) next = $('ol li').first();
+	            next.addClass('playing').siblings().removeClass('playing');
+	            audio.load($('a', next).attr('data-src'));
+	            audio.play();
+	          }
+	        });
+        
+	        // Load in the first track
+	        var audio = a[0];
+	            first = $('ol a').attr('data-src');
+	        $('ol li').first().addClass('playing');
+	        audio.load(first);
+
+	        // Load in a track on click
+	        $('ol li').click(function(e) {
+	          e.preventDefault();
+	          $(this).addClass('playing').siblings().removeClass('playing');
+	          audio.load($('a', this).attr('data-src'));
+	          audio.play();
+	        });
+        // Keyboard shortcuts
+        	$(document).keydown(function(e) {
+          	var unicode = e.charCode ? e.charCode : e.keyCode;
+             // right arrow
+	          if (unicode == 39) {
+	            var next = $('li.playing').next();
+	            if (!next.length) next = $('ol li').first();
+	            next.click();
+	            // back arrow
+	          } else if (unicode == 37) {
+	            var prev = $('li.playing').prev();
+	            if (!prev.length) prev = $('ol li').last();
+	            prev.click();
+	            // spacebar
+	          } else if (unicode == 32) {
+	            audio.playPause();
+	          }
+	        })
+  		});
 	</script>
 </body>
 </html>

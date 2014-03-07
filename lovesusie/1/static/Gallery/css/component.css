@@ -35,7 +35,7 @@
 
 .photostack figure {
 	width: 320px;
-	height: 360px;
+	height: 340px;
 	position: relative;
 	display: inline-block;
 	background: #fff;
@@ -76,7 +76,7 @@
 	color: #a7a0a2;
 	padding: 50px 40px;
 	text-align: left;
-	font-size: 22px;
+	font-size: 18px;
 	line-height: 1.25;
 }
 
@@ -308,9 +308,9 @@ figure.photostack-current::after {
 /* Some custom styles for the demo */
 
 /* Since we don't have back sides for the first photo stack, we don't want the current dot to become too big */
-#photostack-1 nav span.current {
+/*#photostack-1 nav span.current {
 	z-index: 1;
 	background: #888;
 	-webkit-transform: scale(0.61);
 	transform: scale(0.61);
-}
+}*/
